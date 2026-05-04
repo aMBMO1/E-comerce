@@ -1,0 +1,26 @@
+{% extends 'magasin/base.html' %}
+
+{% block title %}
+    {% if object %}Modifier Post{% else %}Créer Post{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="col-md-8 mx-auto">
+        <h2>
+            {% if object %}
+                Modifier un post
+            {% else %}
+                Créer un post
+            {% endif %}
+        </h2>
+
+        <form method="post" enctype="multipart/form-data" class="post-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a href="{% url 'post_list' %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

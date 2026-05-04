@@ -1,0 +1,29 @@
+{% extends 'magasin/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top" style="max-height: 400px; object-fit: cover;" alt="{{ post.title }}">
+        {% endif %}
+        <div class="card-body">
+            <h2>{{ post.title }}</h2>
+
+            <p>
+                <strong>Auteur :</strong> {{ post.author }}<br>
+                <strong>Créé le :</strong> {{ post.created_on|date:"d/m/Y H:i" }}<br>
+                <strong>Mis à jour le :</strong> {{ post.updated_on|date:"d/m/Y H:i" }}<br>
+                <strong>Statut :</strong> {{ post.get_status_display }}
+            </p>
+
+            <p>{{ post.content }}</p>
+
+            <a href="{% url 'post_update' post.pk %}" class="btn btn-warning">Modifier</a>
+            <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Supprimer</a>
+            <a href="{% url 'post_list' %}" class="btn btn-secondary">Retour</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

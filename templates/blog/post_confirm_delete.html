@@ -1,0 +1,18 @@
+{% extends 'magasin/base.html' %}
+
+{% block title %}Supprimer Post{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="col-md-8 mx-auto">
+        <h2>Confirmer la suppression</h2>
+        <p>Voulez-vous vraiment supprimer le post : <strong>{{ object.title }}</strong> ?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+            <a href="{% url 'post_detail' object.pk %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

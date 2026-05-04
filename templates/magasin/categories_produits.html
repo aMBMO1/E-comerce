@@ -1,0 +1,51 @@
+{% extends 'magasin/base.html' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+
+        <!-- LEFT SIDE: vertical category list -->
+        <div class="col-lg-3">
+            <div class="list-group">
+                <a href="{% url 'categories_produits' %}" class="list-group-item list-group-item-action">
+                    Tous les produits
+                </a>
+
+                {% for cat in categories %}
+                    <a href="{% url 'produits_par_categorie' cat.id %}"
+                       class="list-group-item list-group-item-action {% if categorie_selectionnee and categorie_selectionnee.id == cat.id %}active{% endif %}">
+                        {{ cat.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE: products -->
+        <div class="col-lg-9">
+            <div class="row mx-auto">
+                {% for product in produits %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 18rem;">
+                        {% if product.img %}
+                            <img src="{{ product.img.url }}" class="card-img-top" height="250" alt="{{ product.libelle }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-title">{{ product.libelle }}</p>
+                            <p><b>{{ product.description }}</b></p>
+                            <p>{{ product.prix }} DT</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <p>Aucun produit disponible pour cette catégorie.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

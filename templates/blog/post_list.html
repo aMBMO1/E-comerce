@@ -1,0 +1,41 @@
+{% extends 'magasin/base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Liste des Posts</h2>
+        <a href="{% url 'post_create' %}" class="btn btn-primary">Poster</a>
+    </div>
+
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100" style="width: 18rem;">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" height="200" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">
+                        {{ post.content|truncatewords:12 }}
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Auteur : {{ post.author }}<br>
+                            Créé le : {{ post.created_on|date:"d/m/Y H:i" }}
+                        </small>
+                    </p>
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-info btn-sm">Détail</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>Aucun post disponible.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

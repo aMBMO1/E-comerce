@@ -1,0 +1,31 @@
+{% extends 'magasin/base.html' %}
+{% load static %}
+
+{% block title %}Vitrine{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <div style="overflow: scroll; border: #000000 1px solid;">
+        <table>
+            <tr>
+                {% for article in list %}
+                <td style="padding: 10px; text-align: center;">
+                    {% if article.img %}
+                    <img src="{{ article.img.url }}"
+                         class="rounded float-start"
+                         height="200px"
+                         width="200px"
+                         alt="">
+                    {% endif %}
+                    <figcaption class="figure-caption">
+                        {{ article.libelle }}
+                    </figcaption>
+                    <p>{{ article.img }}</p>
+                    <p>{{ article.prix }} DT.</p>
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
