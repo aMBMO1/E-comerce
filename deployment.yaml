@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e-commerce-app
+spec:
+  replicas: 3  # 3 instances de ton site e-commerce pour la haute disponibilité
+  selector:
+    matchLabels:
+      app: e-commerce
+  template:
+    metadata:
+      labels:
+        app: e-commerce
+    spec:
+      containers:
+      - name: django-container
+        image: e-commerce-django:latest
+        imagePullPolicy: Never  # Important : utilise l'image locale, ne va pas chercher sur Docker Hub
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DJANGO_SETTINGS_MODULE
+            value: "mysite.settings"  # Changé de e_commerce.settings à mysite.settings
+          - name: ALLOWED_HOSTS
+            value: "*"
+          - name: PYTHONUNBUFFERED
+            value: "1"
